@@ -1,0 +1,64 @@
+
+<div class="container bg-light">
+  <h1>Registration Form</h1>
+  <hr>
+  <form #userForm="ngForm" (ngSubmit)="OnFormSubmit(userForm)">
+
+    <h3>{{ userForm.value | json }}</h3>
+    <hr>
+    <h3>{{ userModel | json }}</h3>
+    <hr>
+
+  <div class="form-group">
+    <label for="">Username</label>
+    <input type="text" #name="ngModel" [(ngModel)]="userModel.name" name="userName" [class.is-invalid]="name.invalid && name.touched" class="form-control" required />
+    <small class="text-danger" [class.d-none]="name.untouched || name.valid">This is required field</small>
+  </div>
+  <!-- {{ name.touched }} -->
+
+  <div class="form-group">
+    <label for="">Email</label>
+    <input type="text" #email="ngModel" [ngModel]="userModel.email" name="email" [class.is-invalid]="email.invalid && email.touched" class="form-control" required />
+    <small class="text-danger" [class.d-none]="email.untouched || email.valid">This is required field</small>
+  </div>
+
+  <div class="form-group">
+    <label for="">Phone</label>
+    <input type="text" #phone="ngModel" [ngModel]="userModel.phone" name="phone" maxlength="10" [class.is-invalid]="phone.invalid && phone.touched"  class="form-control" required />
+    <!-- <small class="text-danger" [class.d-none]="phone.untouched || phone.valid">please enter 10 digit phone mumber</small> -->
+  <div *ngIf="!phone.errors && (phone.touched || phone.invalid)">
+    <small class="text-danger" >This is required field</small>
+   <small class="text-danger" > and please enter 10 digit phone mumber</small>
+  </div>
+  </div>
+<!--   {{ phone.touched}} -->
+
+  <div class="form-group">
+    <label for="">Topic</label>
+    <select class="form-control" [ngModel]="userModel.topic" name="topic">
+      <option *ngFor="let topic of topics">{{ topic }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="">Gender</label> <br />
+    <div class="form-check">
+      <input type="radio" class="form-check-input" name="gender" [ngModel]="userModel.gender" value="male" />
+      <label for="" class="form-check-label">Male</label>
+    </div>
+
+    <div class="form-check">
+      <input type="radio" class="form-check-input" name="gender" [ngModel]="userModel.gender" value="female" />
+      <label for="" class="form-check-label">Female</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" [ngModel]="userModel.subscribe" name="subscribe" /> Subscribe
+    </div>
+  </div>
+  <input type="submit" value="Submit" class="btn btn-primary" />
+</form>
+
+</div>
